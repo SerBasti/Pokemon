@@ -16,7 +16,7 @@ public class Tracker {
     }
 
     public void followPath(char direction) {
-        
+
 
     }
 
