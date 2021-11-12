@@ -32,14 +32,18 @@ public class Console {
             char[] directions  = input.toCharArray();
             tracker.newPath();
 
-            for (int i = 0; i < directions.length; i++) {
-                tracker.followPath(directions[i]);
+            try{
+                for (char direction : directions) {
+                    tracker.followPath(direction);
+                }
+
+                out.printf(RESULT_MESSAGE, tracker.getPathSize());
+                out.println(SUCCESSFUL_INPUT_MESSAGE);
+            }catch (InvalidDirectionException e){
+                out.println(e.getMessage());
             }
 
-            out.printf(RESULT_MESSAGE, tracker.getPathSize());
-            out.println(SUCCESSFUL_INPUT_MESSAGE);
             input = inputReader.nextLine();
-
         }
     }
 

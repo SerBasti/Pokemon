@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Tracker {
 
@@ -6,18 +6,44 @@ public class Tracker {
 
     private Coordinate currentPosition;
 
-    private HashMap<Long, Long> grid;
+    private LinkedList<Coordinate> passedTiles;
 
     public Tracker() {
         pathSize = 1;
         currentPosition = new Coordinate(0,0);
-        grid = new HashMap<>();
-        grid.put(0L, 0L);
+        passedTiles = new LinkedList<>();
+        passedTiles.add(currentPosition);
     }
 
-    public void followPath(char direction) {
+    public void followPath(char direction) throws InvalidDirectionException {
+        switch(direction) {
+            case 'N':
+                currentPosition.moveUp();
+                addNewPassedTile();
+                break;
+            case 'S':
+                currentPosition.moveDown();
+                addNewPassedTile();
+                break;
+            case 'E':
+                currentPosition.moveRight();
+                addNewPassedTile();
+                break;
+            case 'O':
+                currentPosition.moveLeft();
+                addNewPassedTile();
+                break;
+            default:
+                throw new InvalidDirectionException("The inserted path had invalid characters. Please use only 'N','S','E' or 'O'");
+                // code block
+        }
+    }
 
-
+    private void addNewPassedTile(){
+        if(!passedTiles.contains(currentPosition)){
+            passedTiles.add(currentPosition);
+            ++pathSize;
+        }
     }
 
     public Long getPathSize() {
@@ -27,7 +53,7 @@ public class Tracker {
     public void newPath() {
         pathSize = 1;
         currentPosition = new Coordinate(0,0);
-        grid.clear();
-        grid.put(0L, 0L);
+        passedTiles.clear();
+        passedTiles.add(currentPosition);
     }
 }
