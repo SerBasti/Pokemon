@@ -12,26 +12,26 @@ public class Tracker {
         pathSize = 1;
         currentPosition = new Coordinate(0,0);
         passedTiles = new LinkedList<>();
-        passedTiles.add(currentPosition);
+        passedTiles.add(currentPosition.copy());
     }
 
     public void followPath(char direction) throws InvalidDirectionException {
         switch(direction) {
             case 'N':
                 currentPosition.moveUp();
-                addNewPassedTile();
+                addNewPassedTile(currentPosition.copy());
                 break;
             case 'S':
                 currentPosition.moveDown();
-                addNewPassedTile();
+                addNewPassedTile(currentPosition.copy());
                 break;
             case 'E':
                 currentPosition.moveRight();
-                addNewPassedTile();
+                addNewPassedTile(currentPosition.copy());
                 break;
             case 'O':
                 currentPosition.moveLeft();
-                addNewPassedTile();
+                addNewPassedTile(currentPosition.copy());
                 break;
             default:
                 throw new InvalidDirectionException("The inserted path had invalid characters. Please use only 'N','S','E' or 'O'");
@@ -39,14 +39,14 @@ public class Tracker {
         }
     }
 
-    private void addNewPassedTile(){
-        if(!passedTiles.contains(currentPosition)){
-            passedTiles.add(currentPosition);
+    private void addNewPassedTile(Coordinate newCoordinate){
+        if(!passedTiles.contains(newCoordinate)){
+            passedTiles.add(newCoordinate);
             ++pathSize;
         }
     }
 
-    public Long getPathSize() {
+    public long getPathSize() {
         return pathSize;
     }
 
@@ -54,6 +54,6 @@ public class Tracker {
         pathSize = 1;
         currentPosition = new Coordinate(0,0);
         passedTiles.clear();
-        passedTiles.add(currentPosition);
+        passedTiles.add(currentPosition.copy());
     }
 }

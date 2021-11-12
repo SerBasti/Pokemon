@@ -27,6 +27,10 @@ public class Coordinate {
     }
 
 
+    public Coordinate copy(){
+        return new Coordinate(x,y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
